@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.example</groupId>
+    <artifactId>BetterClaims</artifactId>
+    <version>0.0.1</version>
+
+    <properties>
+
+        <main.class>org.geminicraft.betterclaims.MainPlugin</main.class>
+
+        <foundation.version>5.8.0</foundation.version>
+
+        <java.version>1.8</java.version>
+
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <repositories>
+        <repository>
+            <id>spigotmc-repo</id>
+            <url>https://hub.spigotmc.org/nexus/content/groups/public/</url>
+        </repository>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+        <repository>
+            <id>sonatype</id>
+            <url>https://oss.sonatype.org/content/groups/public/</url>
+        </repository>
+    </repositories>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.spigotmc</groupId>
+            <artifactId>spigot-api</artifactId>
+            <version>1.16.3-R0.1-SNAPSHOT</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.github.kangarko</groupId>
+            <artifactId>Foundation</artifactId>
+            <version>${foundation.version}</version>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+
+        <!--
+           When we are building your plugins, what plugins should we use during this process?
+
+           The plugins here extend the functionality of Maven, just like your plugin enhances Minecraft
+           These are not Minecraft plugins, but only Maven plugins!
+       -->
+        <plugins>
+
+            <!--
+               The first and the most essential plugin is the compiler, that translates your
+               human readable code into bytecode.
+           -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <!--
+                   You want to check and update the latest version periodically from
+                   https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-compiler-plugin
+               -->
+                <version>3.8.1</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                </configuration>
+            </plugin>
+
+            <!--
+               The second plugin is the shade plugin, packaging every library with
+               the "compile" scope (see dependencies)
+           -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <!--
+                   You want to check and update the latest version periodically from
+                   https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-shade-plugin
+               -->
+                <version>3.2.1</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <!--
+                            By default we configure the Foundation to include itself and all classes when
+                            we set the scope to compile (see above).
+
+                            There are many libraries from Foundation we will not need to use, and here
+                            can you specify which ones to exclude. Please leave the default ones as they are.
+                       -->
+                        <configuration>
+                            <createDependencyReducedPom>false</createDependencyReducedPom>
+                            <finalName>${project.name}-${project.version}</finalName>
+                            <artifactSet>
+                                <includes>
+                                    <include>org.mineacademy:Game*</include>
+                                    <include>com.github.kangarko:Foundation*</include>
+                                </includes>
+                                <excludes>
+                                    <exclude>org.mineacademy:GameAPI*</exclude>
+                                </excludes>
+                            </artifactSet>
+                            <relocations>
+                                <relocation>
+                                    <pattern>org.mineacademy</pattern>
+                                    <shadedPattern>${project.groupId}.${project.artifactId}.lib</shadedPattern>
+                                    <excludes>
+                                        <exclude>org.mineacademy.${project.artifactId}.*</exclude>
+                                        <exclude>org.mineacademy.gameapi.*</exclude>
+                                        <exclude>org.mineacademy.boss.*</exclude>
+                                        <exclude>org.mineacademy.worldeditbridge.*</exclude>
+                                    </excludes>
+                                </relocation>
+                            </relocations>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+
+        <!--
+           During the build, we are going to scan all files in src/main/resources
+           folder such as plugin.yml and your settings files and replace all variables
+           such as ${main.class} with their proper values.
+
+           You can use native variables such as ${project.X} or the ones you defined above
+           in the properties section.
+       -->
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+    </build>
+
+</project>
