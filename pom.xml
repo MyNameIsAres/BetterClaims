@@ -6,13 +6,13 @@
 
     <groupId>org.example</groupId>
     <artifactId>BetterClaims</artifactId>
-    <version>0.0.1</version>
+    <version>0.0.2</version>
 
     <properties>
 
         <main.class>org.geminicraft.betterclaims.MainPlugin</main.class>
 
-        <foundation.version>5.8.0</foundation.version>
+        <foundation.version>5.11.2</foundation.version>
 
         <java.version>1.8</java.version>
 
@@ -31,6 +31,12 @@
         <repository>
             <id>sonatype</id>
             <url>https://oss.sonatype.org/content/groups/public/</url>
+        </repository>
+
+        <repository>
+            <id>nexus</id>
+            <name>Lumine Releases</name>
+            <url>https://mvn.lumine.io/repository/maven-public/</url>
         </repository>
     </repositories>
 
@@ -51,26 +57,11 @@
     </dependencies>
 
     <build>
-
-        <!--
-           When we are building your plugins, what plugins should we use during this process?
-
-           The plugins here extend the functionality of Maven, just like your plugin enhances Minecraft
-           These are not Minecraft plugins, but only Maven plugins!
-       -->
         <plugins>
-
-            <!--
-               The first and the most essential plugin is the compiler, that translates your
-               human readable code into bytecode.
-           -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <!--
-                   You want to check and update the latest version periodically from
-                   https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-compiler-plugin
-               -->
+
                 <version>3.8.1</version>
                 <configuration>
                     <source>${java.version}</source>
@@ -78,17 +69,9 @@
                 </configuration>
             </plugin>
 
-            <!--
-               The second plugin is the shade plugin, packaging every library with
-               the "compile" scope (see dependencies)
-           -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
-                <!--
-                   You want to check and update the latest version periodically from
-                   https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-shade-plugin
-               -->
                 <version>3.2.1</version>
                 <executions>
                     <execution>
@@ -96,13 +79,6 @@
                         <goals>
                             <goal>shade</goal>
                         </goals>
-                        <!--
-                            By default we configure the Foundation to include itself and all classes when
-                            we set the scope to compile (see above).
-
-                            There are many libraries from Foundation we will not need to use, and here
-                            can you specify which ones to exclude. Please leave the default ones as they are.
-                       -->
                         <configuration>
                             <createDependencyReducedPom>false</createDependencyReducedPom>
                             <finalName>${project.name}-${project.version}</finalName>
@@ -132,15 +108,6 @@
                 </executions>
             </plugin>
         </plugins>
-
-        <!--
-           During the build, we are going to scan all files in src/main/resources
-           folder such as plugin.yml and your settings files and replace all variables
-           such as ${main.class} with their proper values.
-
-           You can use native variables such as ${project.X} or the ones you defined above
-           in the properties section.
-       -->
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
