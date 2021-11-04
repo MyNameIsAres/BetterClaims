@@ -1,0 +1,17 @@
+
+#if (${PACKAGE_NAME} && ${PACKAGE_NAME} != "")package ${PACKAGE_NAME};#end
+
+import org.mineacademy.fo.command.SimpleCommand;
+
+public class ${NAME} extends SimpleCommand {
+
+public ${NAME}() {
+super("");
+}
+
+@Override
+protected void onCommand() {
+
+}
+
+}

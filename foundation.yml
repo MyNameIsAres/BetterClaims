@@ -1,0 +1,13 @@
+project_path: org/geminicraft/betterclaims
+command_location: /command
+conversation_location: /conversation
+listener_location: /event
+database_location: /mysql
+enchant_location: /enchantment
+rank_location: /rank
+player_class_location: /classes/models
+quest_location: /quest/models
+boss_location: /boss/models
+boss_skill_location: /boss/skill
+player_cache_location: /
+npc_location: /boss/npc/models
