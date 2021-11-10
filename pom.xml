@@ -7,6 +7,7 @@
     <groupId>org.example</groupId>
     <artifactId>BetterClaims</artifactId>
     <version>0.0.2</version>
+    <name>BetterClaims</name>
 
     <properties>
 
@@ -41,6 +42,12 @@
     </repositories>
 
     <dependencies>
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.8.9</version>
+        </dependency>
+
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>

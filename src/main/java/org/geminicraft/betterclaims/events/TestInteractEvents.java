@@ -8,9 +8,12 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.geminicraft.betterclaims.MainPlugin;
-import org.geminicraft.betterclaims.claims.Claim;
+import org.geminicraft.betterclaims.claims.Area;
+import org.geminicraft.betterclaims.claims.claim.Claim;
 import org.geminicraft.betterclaims.task.VisualiserTask;
 import org.mineacademy.fo.Common;
+
+import java.io.IOException;
 
 public class TestInteractEvents implements Listener {
 
@@ -53,8 +56,32 @@ public class TestInteractEvents implements Listener {
             int newArea = width * length;
             Common.log(newArea + " area.");
 
-            Claim claim = new Claim(testLocation, secondTestLocation);
-            Common.tell(event.getPlayer(), claim.toString());
+            Claim claim = new Claim(event.getPlayer().getUniqueId(), 0L, testLocation, secondTestLocation);
+            claim.addClaimToList(claim);
+            try {
+                claim.persistClaimToJson();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+//            Area.createArea("hello");
+//            Claim.createClaim(event.getPlayer().getUniqueId(), 0L, testLocation, secondTestLocation);
+
+//            Claim.createClaim(event.getPlayer().getUniqueId(), 0L);
+
+//            Claim claim = new Claim(event.getPlayer().getUniqueId(), 0L);
+//            Claim claim = new Claim(event.getPlayer().getUniqueId(), 0L, testLocation, secondTestLocation);
+//            Common.tell(event.getPlayer(), claim.toString());
+//
+//            claim.getTemporaryList().add(claim);
+//
+//            claim.getTemporaryList().forEach((item -> System.out.println(claim)));
+//
+//            try {
+//                claim.saveClaimToJSON();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
 
             Bukkit.getScheduler().runTask(mainPlugin, new VisualiserTask(testLocation, secondTestLocation));
 
