@@ -1,14 +1,6 @@
 package org.geminicraft.betterclaims.claims.claim;
 
-import com.google.gson.*;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
-import lombok.Getter;
-import lombok.Setter;
 import org.bukkit.Location;
-import org.geminicraft.betterclaims.MainPlugin;
-
-import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
