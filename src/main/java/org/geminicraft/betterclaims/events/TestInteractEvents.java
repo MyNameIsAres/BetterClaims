@@ -1,6 +1,6 @@
 package org.geminicraft.betterclaims.events;
 
-import org.bukkit.Bukkit;
+import com.google.gson.Gson;
 import org.bukkit.Location;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -8,9 +8,8 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.geminicraft.betterclaims.MainPlugin;
-import org.geminicraft.betterclaims.claims.Area;
 import org.geminicraft.betterclaims.claims.claim.Claim;
-import org.geminicraft.betterclaims.task.VisualiserTask;
+import org.geminicraft.betterclaims.claims.claim.data.ClaimPersistence;
 import org.mineacademy.fo.Common;
 
 import java.io.IOException;
@@ -21,9 +20,11 @@ public class TestInteractEvents implements Listener {
     Location secondTestLocation = null;
 
     private MainPlugin mainPlugin;
+    private Gson gson;
 
-    public TestInteractEvents(MainPlugin mainPlugin) {
+    public TestInteractEvents(MainPlugin mainPlugin, Gson gson) {
         this.mainPlugin = mainPlugin;
+        this.gson = gson;
     }
 
     @EventHandler
@@ -57,33 +58,32 @@ public class TestInteractEvents implements Listener {
             Common.log(newArea + " area.");
 
             Claim claim = new Claim(event.getPlayer().getUniqueId(), 0L, testLocation, secondTestLocation);
-            claim.addClaimToList(claim);
-            try {
-                claim.persistClaimToJson();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            Claim.addClaimToList(claim);
 
-//            Area.createArea("hello");
-//            Claim.createClaim(event.getPlayer().getUniqueId(), 0L, testLocation, secondTestLocation);
-
-//            Claim.createClaim(event.getPlayer().getUniqueId(), 0L);
-
-//            Claim claim = new Claim(event.getPlayer().getUniqueId(), 0L);
-//            Claim claim = new Claim(event.getPlayer().getUniqueId(), 0L, testLocation, secondTestLocation);
-//            Common.tell(event.getPlayer(), claim.toString());
-//
-//            claim.getTemporaryList().add(claim);
-//
-//            claim.getTemporaryList().forEach((item -> System.out.println(claim)));
-//
 //            try {
-//                claim.saveClaimToJSON();
+//                claim.persistClaimToJson();
 //            } catch (IOException e) {
 //                e.printStackTrace();
 //            }
 
-            Bukkit.getScheduler().runTask(mainPlugin, new VisualiserTask(testLocation, secondTestLocation));
+//            String json = gson.toJson(claim);
+//            System.out.println(json);
+//
+            try {
+                new ClaimPersistence(gson).persistClaimToJson(claim);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+//            Claim jsonClaim = gson.fromJson(json, Claim.class);
+//            System.out.println(jsonClaim);
+
+//            try {
+//                claim.persistClaimToJson();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//            Bukkit.getScheduler().runTask(mainPlugin, new VisualiserTask(testLocation, secondTestLocation));
 
             testLocation = null;
             secondTestLocation = null;

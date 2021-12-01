@@ -8,10 +8,7 @@ import lombok.Setter;
 import org.bukkit.Location;
 import org.geminicraft.betterclaims.MainPlugin;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.Writer;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -22,11 +19,24 @@ public class Claim {
     private UUID ownerUUID;
     Long claimID;
 
-    @Getter
-    private List<Claim> claimList = new ArrayList<>();
 
-    public void addClaimToList(Claim claim) {
+    private static List<Claim> claimList = new ArrayList<>();
+
+    public static void addClaimToList(Claim claim) {
         claimList.add(claim);
+
+        // For testing only
+        claimList.forEach((claims) -> {
+            System.out.println(claims.toString());
+        });
+    }
+
+    public Claim() {
+    }
+
+    public Claim(UUID ownerUUID, Long claimID) {
+        this.ownerUUID = ownerUUID;
+        this.claimID = claimID;
     }
 
     public Claim(UUID ownerUUID, Long claimID, Location lesserBoundaryCorner, Location greaterBoundaryCorner) {
@@ -36,31 +46,16 @@ public class Claim {
         this.greaterBoundaryCorner = greaterBoundaryCorner;
     }
 
-    public void persistClaimToJson() throws IOException {
-        File file = new File(MainPlugin.getInstance().getDataFolder().getAbsolutePath() + "/claims.json");
-        file.getParentFile().mkdir();
-        file.createNewFile();
-        JsonArray jsonArray = new JsonArray();
-
-        claimList.forEach((claim) -> {
-            jsonArray.add(claim.write(new JsonObject()));
-        });
-
-        Writer writer = new FileWriter(file, false);
-        new Gson().toJson(jsonArray, writer);
-
-        writer.flush();
-        writer.close();
+    public UUID getOwnerUUID() {
+        return ownerUUID;
     }
 
-    // TODO: Fix encoding problem with location values.
-    public JsonObject write(JsonObject object) {
-        object.addProperty("ownerUUID", String.valueOf(ownerUUID));
-        object.addProperty("claimId", claimID);
-        object.addProperty("lesserBoundaryCorner", String.valueOf(lesserBoundaryCorner));
-        object.addProperty("greaterBoundaryCorner", String.valueOf(greaterBoundaryCorner));
+    public Long getClaimID() {
+        return claimID;
+    }
 
-        return object;
+    public static List<Claim> getClaimList() {
+        return claimList;
     }
 
     public Location getLesserBoundaryCorner() {
@@ -69,6 +64,22 @@ public class Claim {
 
     public Location getGreaterBoundaryCorner() {
         return greaterBoundaryCorner;
+    }
+
+    public void setLesserBoundaryCorner(Location lesserBoundaryCorner) {
+        this.lesserBoundaryCorner = lesserBoundaryCorner;
+    }
+
+    public void setGreaterBoundaryCorner(Location greaterBoundaryCorner) {
+        this.greaterBoundaryCorner = greaterBoundaryCorner;
+    }
+
+    public void setOwnerUUID(UUID ownerUUID) {
+        this.ownerUUID = ownerUUID;
+    }
+
+    public void setClaimID(Long claimID) {
+        this.claimID = claimID;
     }
 
     @Override
