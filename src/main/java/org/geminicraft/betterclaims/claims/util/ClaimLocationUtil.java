@@ -1,33 +1,39 @@
 package org.geminicraft.betterclaims.claims.util;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.World;
+import org.bukkit.entity.Player;
+import org.geminicraft.betterclaims.claims.claim.Claim;
 import org.mineacademy.fo.Common;
+
+import java.util.List;
 
 public class ClaimLocationUtil {
 
-    public String getStringLocation(final Location location) {
-        return location.getWorld().getName() + " " + location.getX() + " " + location.getY() + " " + location.getZ();
-    }
-
-    public Location getLocationString(final String input) {
-        final String[] parts = input.split(" ");
-        if (parts.length == 4) {
-
-            try {
-                final World w = Bukkit.getServer().getWorld(parts[0]);
-                final double x = Double.parseDouble(parts[1]);
-                final double y = Double.parseDouble(parts[2]);
-                final double z = Double.parseDouble(parts[3]);
-
-                return new Location(w, x, y, z);
-            } catch (NumberFormatException numberFormatException) {
-                Common.log("Could not parse String to Double! Please check the file for any typo's!");
-            }
+    public static Claim getClaim(Location blockLocation, Claim lastClaim) {
+        if (lastClaim != null && lastClaim.contains(blockLocation)) {
+            return lastClaim;
         }
 
+        List<Claim> claimList = Claim.getClaimList();
+
+        for (Claim claim : claimList) {
+            if (claim.contains(blockLocation)) {
+                return claim;
+            }
+        }
         return null;
     }
+
+    // This covers breaking, placing, interactions at the basic level. Complexity will change over time.
+    public static boolean isPlayerAllowedToInteract(Location location, Player player, Claim lastPlayerClaim) {
+        Claim claim = getClaim(location, lastPlayerClaim);
+
+        if (claim == null) {
+            Common.tell(player, "&6This is probably the wilderness!");
+            return true;
+        }
+        return claim.getOwnerUUID().equals(player.getUniqueId());
+    }
+
 
 }
