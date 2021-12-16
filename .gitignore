@@ -3,3 +3,4 @@ target
 build.xml
 BetterClaims.iml
 foundation.yml
+src/main/java/org/geminicraft/betterclaims/Tests.java

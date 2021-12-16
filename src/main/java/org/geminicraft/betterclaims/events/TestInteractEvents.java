@@ -1,6 +1,7 @@
 package org.geminicraft.betterclaims.events;
 
 import com.google.gson.Gson;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -10,6 +11,7 @@ import org.bukkit.inventory.EquipmentSlot;
 import org.geminicraft.betterclaims.MainPlugin;
 import org.geminicraft.betterclaims.claims.claim.Claim;
 import org.geminicraft.betterclaims.claims.claim.data.ClaimPersistence;
+import org.geminicraft.betterclaims.task.VisualiserTask;
 import org.mineacademy.fo.Common;
 
 import java.io.IOException;
@@ -83,7 +85,6 @@ public class TestInteractEvents implements Listener {
 //            } catch (IOException e) {
 //                e.printStackTrace();
 //            }
-//            Bukkit.getScheduler().runTask(mainPlugin, new VisualiserTask(testLocation, secondTestLocation));
 
             testLocation = null;
             secondTestLocation = null;
