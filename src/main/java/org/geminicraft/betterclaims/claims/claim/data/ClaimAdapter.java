@@ -5,14 +5,14 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
 import org.geminicraft.betterclaims.claims.claim.Claim;
-import org.geminicraft.betterclaims.claims.util.ClaimLocationUtil;
+import org.geminicraft.betterclaims.claims.util.ClaimLocationStringUtil;
 
 import java.io.IOException;
 import java.util.UUID;
 
 public class ClaimAdapter extends TypeAdapter<Claim> {
 
-    private final ClaimLocationUtil locationUtil = new ClaimLocationUtil();
+    private final ClaimLocationStringUtil locationUtil = new ClaimLocationStringUtil();
 
     @Override
     public void write(JsonWriter jsonWriter, Claim claim) throws IOException {
