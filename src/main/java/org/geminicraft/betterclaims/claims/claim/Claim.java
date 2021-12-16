@@ -38,6 +38,12 @@ public class Claim {
         this.greaterBoundaryCorner = greaterBoundaryCorner;
     }
 
+    // TODO: This isn't the cleanest solution. Revisit it and clean it up.
+    public boolean contains(Location location) {
+        ClaimBoundBox boundBox = new ClaimBoundBox(this);
+        return  boundBox.contains(location);
+    }
+
     public UUID getOwnerUUID() {
         return ownerUUID;
     }

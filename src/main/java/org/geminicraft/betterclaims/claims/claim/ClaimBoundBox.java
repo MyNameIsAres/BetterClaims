@@ -5,6 +5,7 @@ package org.geminicraft.betterclaims.claims.claim;
     */
 
 import org.bukkit.Location;
+import org.bukkit.block.Block;
 
 public class ClaimBoundBox {
 
@@ -20,13 +21,17 @@ public class ClaimBoundBox {
                 location2.getBlockX(), location2.getBlockY(), location2.getBlockZ());
     }
 
-    public ClaimBoundBox(int minX, int maxX, int minY, int maxY, int minZ, int maxZ) {
+    public ClaimBoundBox(int minX, int minY, int minZ, int maxX, int maxY, int maxZ) {
         this.minX = minX;
         this.maxX = maxX;
         this.minY = minY;
         this.maxY = maxY;
         this.minZ = minZ;
         this.maxZ = maxZ;
+    }
+
+    public ClaimBoundBox(Block block) {
+        this(block.getX(), block.getY(), block.getZ(), block.getX(), block.getY(), block.getZ());
     }
 
     public ClaimBoundBox(Claim claim) {
@@ -37,48 +42,24 @@ public class ClaimBoundBox {
         return minX;
     }
 
-    public void setMinX(int minX) {
-        this.minX = minX;
-    }
-
     public int getMaxX() {
         return maxX;
-    }
-
-    public void setMaxX(int maxX) {
-        this.maxX = maxX;
     }
 
     public int getMinY() {
         return minY;
     }
 
-    public void setMinY(int minY) {
-        this.minY = minY;
-    }
-
     public int getMaxY() {
         return maxY;
-    }
-
-    public void setMaxY(int maxY) {
-        this.maxY = maxY;
     }
 
     public int getMinZ() {
         return minZ;
     }
 
-    public void setMinZ(int minZ) {
-        this.minZ = minZ;
-    }
-
     public int getMaxZ() {
         return maxZ;
-    }
-
-    public void setMaxZ(int maxZ) {
-        this.maxZ = maxZ;
     }
 
     public boolean contains(Claim claim) {
@@ -87,15 +68,14 @@ public class ClaimBoundBox {
                 this.getMinZ() >= minX && this.getMaxZ() < maxX;
     }
 
-
     public boolean contains(Location location) {
         return contains(location.getBlockX(), location.getBlockY(), location.getBlockZ());
     }
 
     public boolean contains(int x, int y, int z) {
-        return x >= minX && x <= maxX &&
-                y >= minY && y <= maxY &&
-                z >= minZ && z <= maxZ;
+        return x <= minX && x >= maxX &&
+                y <= minY && y >= maxY &&
+                z <= minZ && z >= maxZ;
     }
 
     public boolean overlaps(Claim claim) {
@@ -103,5 +83,15 @@ public class ClaimBoundBox {
                 minZ > this.getMaxX() || minY > this.getMaxY() || minZ > this.getMaxZ());
     }
 
-
+    @Override
+    public String toString() {
+        return "ClaimBoundBox{" +
+                "minX=" + minX +
+                ", maxX=" + maxX +
+                ", minY=" + minY +
+                ", maxY=" + maxY +
+                ", minZ=" + minZ +
+                ", maxZ=" + maxZ +
+                '}';
+    }
 }
