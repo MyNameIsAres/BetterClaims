@@ -13,7 +13,7 @@
 
         <main.class>org.geminicraft.betterclaims.MainPlugin</main.class>
 
-        <foundation.version>5.11.2</foundation.version>
+        <foundation.version>5.12.3</foundation.version>
 
         <java.version>1.8</java.version>
 
