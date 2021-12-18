@@ -4,14 +4,18 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 
+import org.bukkit.Bukkit;
+import org.bukkit.World;
 import org.bukkit.event.Listener;
 import org.geminicraft.betterclaims.claims.claim.Claim;
 import org.geminicraft.betterclaims.claims.claim.data.ClaimAdapter;
 import org.geminicraft.betterclaims.command.ClaimCommand;
+
 import org.geminicraft.betterclaims.events.BlockBreakListener;
 import org.geminicraft.betterclaims.events.BlockPlaceListener;
 import org.geminicraft.betterclaims.events.StructureGrowListener;
 import org.geminicraft.betterclaims.events.TestInteractEvents;
+
 import org.mineacademy.fo.Common;
 import org.mineacademy.fo.plugin.SimplePlugin;
 
@@ -35,7 +39,12 @@ public class MainPlugin extends SimplePlugin implements Listener {
 //        registerEvents(new TestInteractEvents(this, gson));
         registerEvents(new BlockPlaceListener());
         registerEvents(new BlockBreakListener());
+
+        registerEvents(new BlockFormListener());
+        registerEvents(new BlockFluidListener());
+
         registerEvents(new StructureGrowListener());
+
         registerCommand(new ClaimCommand(gson));
     }
 
