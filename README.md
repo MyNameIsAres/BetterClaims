@@ -1,3 +1,3 @@
 # BetterClaims
 
-This project is currently under development. This README document is going to be updated in the coming days as of (6/4/2021).
+BetterClaims is a project aimed to be a modern land claim plugin. 
