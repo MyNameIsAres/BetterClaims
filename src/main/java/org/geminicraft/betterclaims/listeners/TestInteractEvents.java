@@ -70,7 +70,7 @@ public class TestInteractEvents implements Listener {
 //            System.out.println(json);
 //
             try {
-                new ClaimPersistence(gson).persistClaimToJson(claim);
+                new ClaimPersistence(gson).createClaimAsJson(claim);
             } catch (IOException e) {
                 e.printStackTrace();
             }

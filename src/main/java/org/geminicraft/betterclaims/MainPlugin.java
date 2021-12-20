@@ -3,18 +3,16 @@ package org.geminicraft.betterclaims;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
-
 import org.bukkit.event.Listener;
 import org.geminicraft.betterclaims.claims.claim.Claim;
 import org.geminicraft.betterclaims.claims.claim.data.ClaimAdapter;
 import org.geminicraft.betterclaims.command.ClaimCommand;
-
 import org.geminicraft.betterclaims.listeners.blocks.*;
-
 import org.geminicraft.betterclaims.listeners.player.PlayerEmptyBucketListener;
 import org.geminicraft.betterclaims.listeners.player.PlayerInteractListener;
 import org.geminicraft.betterclaims.listeners.player.PlayerSheerEntityListener;
 import org.mineacademy.fo.Common;
+import org.mineacademy.fo.FileUtil;
 import org.mineacademy.fo.plugin.SimplePlugin;
 
 import java.io.File;
@@ -29,7 +27,7 @@ public class MainPlugin extends SimplePlugin implements Listener {
         Gson gson = createGsonBuilder().create();
 
         try {
-            this.getClaimFromJson(gson);
+            this.getClaimsFromJson(gson);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -64,6 +62,19 @@ public class MainPlugin extends SimplePlugin implements Listener {
 
             System.out.println(claim.toString());
         });
+    }
+
+    private void getClaimsFromJson(Gson gson) throws FileNotFoundException {
+        FileReader reader;
+
+        for (File file : FileUtil.getFiles("ClaimData", ".json")) {
+            reader = new FileReader(file);
+
+            Claim claim = gson.fromJson(reader, Claim.class);
+            Claim.addClaimToList(claim);
+
+            System.out.println("[ALERT] Here is thy claim: " + claim);
+        }
     }
 
     private GsonBuilder createGsonBuilder() {
