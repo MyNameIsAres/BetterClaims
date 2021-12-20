@@ -1,4 +1,4 @@
-package org.geminicraft.betterclaims.events;
+package org.geminicraft.betterclaims.listeners.blocks;
 
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
