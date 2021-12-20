@@ -1,4 +1,4 @@
-package org.geminicraft.betterclaims.events;
+package org.geminicraft.betterclaims.listeners.blocks;
 
 import org.bukkit.Location;
 import org.bukkit.block.BlockState;
