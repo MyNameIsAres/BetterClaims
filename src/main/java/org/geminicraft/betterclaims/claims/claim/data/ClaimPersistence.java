@@ -1,6 +1,7 @@
 package org.geminicraft.betterclaims.claims.claim.data;
 
 import com.google.gson.Gson;
+
 import org.geminicraft.betterclaims.MainPlugin;
 import org.geminicraft.betterclaims.claims.claim.Claim;
 
@@ -8,17 +9,20 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
-import java.util.List;
 
 public class ClaimPersistence {
 
     private Gson gson;
 
+    private final String PATH = MainPlugin.getInstance().getDataFolder().getAbsolutePath() + "/ClaimData/";
+
     public ClaimPersistence(Gson gson) {
         this.gson = gson;
     }
-    public void persistClaimToJson(Claim claim) throws IOException {
-        File file = new File(MainPlugin.getInstance().getDataFolder().getAbsolutePath() + "/claims.json");
+
+    public void createClaimAsJson(Claim claim) throws IOException {
+        // TODO: This is a constant path for now, creating claims manually is not yet implemented.
+        File file = new File(PATH + "claim_id_0.json");
         file.getParentFile().mkdir();
         file.createNewFile();
 
@@ -29,17 +33,13 @@ public class ClaimPersistence {
         writer.close();
     }
 
-    public void persistClaimsToJson(List<Claim> claimList) throws IOException {
-        File file = new File(MainPlugin.getInstance().getDataFolder().getAbsolutePath() + "/claims.json");
-        file.getParentFile().mkdir();
-        file.createNewFile();
+    // TODO Update a claim - consider changing this to be more explicit: 'What are we updating? What properties? And maybe even 'why'?'
+    public void updateClaim(Claim claim) {
 
-        Writer writer = new FileWriter(file, true);
-        gson.toJson(claimList, writer);
-
-        writer.flush();
-        writer.close();
     }
 
+    // TODO: Delete a claim
+    public void deleteClaim(Claim claim) {
 
+    }
 }
