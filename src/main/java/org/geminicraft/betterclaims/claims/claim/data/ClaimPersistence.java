@@ -22,7 +22,7 @@ public class ClaimPersistence {
 
     public void createClaimAsJson(Claim claim) throws IOException {
         // TODO: This is a constant path for now, creating claims manually is not yet implemented.
-        File file = new File(PATH + "claim_id_0.json");
+        File file = new File(PATH + "claim_id_2.json");
         file.getParentFile().mkdir();
         file.createNewFile();
 
