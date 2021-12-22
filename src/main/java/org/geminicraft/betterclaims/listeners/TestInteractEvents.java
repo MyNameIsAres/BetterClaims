@@ -57,7 +57,7 @@ public class TestInteractEvents implements Listener {
             int newArea = width * length;
             Common.log(newArea + " area.");
 
-            Claim claim = new Claim(event.getPlayer().getUniqueId(), 0L, testLocation, secondTestLocation);
+            Claim claim = new Claim(event.getPlayer().getUniqueId(), 0L, testLocation, secondTestLocation, null);
             Claim.addClaimToList(claim);
 
 //            try {

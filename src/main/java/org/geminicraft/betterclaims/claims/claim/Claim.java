@@ -3,39 +3,31 @@ package org.geminicraft.betterclaims.claims.claim;
 import org.bukkit.Location;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 public class Claim {
 
-    Location lesserBoundaryCorner, greaterBoundaryCorner;
+    private Location lesserBoundaryCorner, greaterBoundaryCorner;
     private UUID ownerUUID;
-    Long claimID;
-
+    private Long claimID;
+    private Set<ClaimGroup> claimGroup;
 
     private static List<Claim> claimList = new ArrayList<>();
 
     public static void addClaimToList(Claim claim) {
         claimList.add(claim);
-
-        // For testing only
-        claimList.forEach((claims) -> {
-            System.out.println(claims.toString());
-        });
     }
 
     public Claim() {
     }
 
-    public Claim(UUID ownerUUID, Long claimID) {
-        this.ownerUUID = ownerUUID;
-        this.claimID = claimID;
-    }
-
-    public Claim(UUID ownerUUID, Long claimID, Location lesserBoundaryCorner, Location greaterBoundaryCorner) {
+    public Claim(UUID ownerUUID, Long claimID, Location lesserBoundaryCorner, Location greaterBoundaryCorner, Set<ClaimGroup> claimGroups) {
         this.ownerUUID = ownerUUID;
         this.claimID = claimID;
         this.lesserBoundaryCorner = lesserBoundaryCorner;
         this.greaterBoundaryCorner = greaterBoundaryCorner;
+        this.claimGroup = claimGroups;
     }
 
     // TODO: This isn't the cleanest solution. Revisit it and clean it up.
@@ -80,14 +72,24 @@ public class Claim {
         this.claimID = claimID;
     }
 
+    public Set<ClaimGroup> getClaimGroup() {
+        return claimGroup;
+    }
+
+    public void setClaimGroup(Set<ClaimGroup> claimGroup) {
+        this.claimGroup = claimGroup;
+    }
+
     @Override
     public String toString() {
         return "Claim{" +
-                "ownerUUID=" + ownerUUID +
+                "lesserBoundaryCorner=" + lesserBoundaryCorner +
+                ", greaterBoundaryCorner=" + greaterBoundaryCorner +
+                ", ownerUUID=" + ownerUUID +
                 ", claimID=" + claimID +
-                ", lesserLocation" + lesserBoundaryCorner +
-                ", greaterLocation" + greaterBoundaryCorner +
+                ", claimGroup=" + claimGroup +
                 '}';
     }
+
 
 }
