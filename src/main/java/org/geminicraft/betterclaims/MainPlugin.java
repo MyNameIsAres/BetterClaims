@@ -7,6 +7,7 @@ import org.bukkit.event.Listener;
 import org.geminicraft.betterclaims.claims.claim.Claim;
 import org.geminicraft.betterclaims.claims.claim.data.ClaimAdapter;
 import org.geminicraft.betterclaims.command.ClaimCommand;
+import org.geminicraft.betterclaims.command.ClaimToolCommand;
 import org.geminicraft.betterclaims.listeners.TestInteractEvents;
 import org.geminicraft.betterclaims.listeners.blocks.*;
 import org.geminicraft.betterclaims.listeners.player.PlayerEmptyBucketListener;
@@ -33,7 +34,7 @@ public class MainPlugin extends SimplePlugin implements Listener {
             e.printStackTrace();
         }
 
-        registerEvents(new TestInteractEvents(this, gson));
+//        registerEvents(new TestInteractEvents(this, gson));
         registerEvents(new BlockPlaceListener());
         registerEvents(new BlockBreakListener());
         registerEvents(new BlockFormListener());
@@ -45,6 +46,7 @@ public class MainPlugin extends SimplePlugin implements Listener {
 //        registerEvents(new PlayerEmptyBucketListener());
 
         registerCommand(new ClaimCommand(gson));
+        registerCommand(new ClaimToolCommand());
     }
 
     private void getClaimFromJson(Gson gson) throws FileNotFoundException {

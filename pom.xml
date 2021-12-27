@@ -55,6 +55,16 @@
             <scope>provided</scope>
         </dependency>
 
+
+<!--        <dependency>-->
+<!--            <groupId>com.github.broken1arrow</groupId>-->
+<!--            <artifactId>RBG-Gradients</artifactId>-->
+<!--            <version>0.16</version>-->
+<!--            <scope>compile</scope>-->
+
+<!--        </dependency>-->
+
+
         <dependency>
             <groupId>com.github.kangarko</groupId>
             <artifactId>Foundation</artifactId>
@@ -93,6 +103,7 @@
                                 <includes>
                                     <include>org.mineacademy:Game*</include>
                                     <include>com.github.kangarko:Foundation*</include>
+<!--                                    <include>com.github.broken1arrow:RBG-Gradients*</include>-->
                                 </includes>
                                 <excludes>
                                     <exclude>org.mineacademy:GameAPI*</exclude>
@@ -109,6 +120,10 @@
                                         <exclude>org.mineacademy.worldeditbridge.*</exclude>
                                     </excludes>
                                 </relocation>
+<!--                                <relocation>-->
+<!--                                    <pattern>org.broken</pattern>-->
+<!--                                    <shadedPattern>${project.groupId}.${project.artifactId}.lib</shadedPattern>-->
+<!--                                </relocation>-->
                             </relocations>
                         </configuration>
                     </execution>
