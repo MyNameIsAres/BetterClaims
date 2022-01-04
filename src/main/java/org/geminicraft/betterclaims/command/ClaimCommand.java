@@ -19,8 +19,13 @@ public class ClaimCommand extends SimpleCommand {
     }
     @Override
     protected void onCommand() {
-       Claim.getClaimList().forEach((claim -> {
-           Bukkit.getScheduler().runTask(MainPlugin.getInstance(), new VisualiserTask(claim.getLesserBoundaryCorner(), claim.getGreaterBoundaryCorner()));
-       }));
+
+        Claim claim = Claim.getClaimList().get(1);
+                   Bukkit.getScheduler().runTask(MainPlugin.getInstance(), new VisualiserTask(claim.getLesserBoundaryCorner(), claim.getGreaterBoundaryCorner()));
+
+//       Claim.getClaimList().forEach((claim -> {
+//           Bukkit.getScheduler().runTask(MainPlugin.getInstance(), new VisualiserTask(claim.getLesserBoundaryCorner(), claim.getGreaterBoundaryCorner()));
+//       }));
     }
 }
+

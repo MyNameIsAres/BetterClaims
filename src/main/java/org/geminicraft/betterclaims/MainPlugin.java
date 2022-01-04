@@ -8,7 +8,6 @@ import org.geminicraft.betterclaims.claims.claim.Claim;
 import org.geminicraft.betterclaims.claims.claim.data.ClaimAdapter;
 import org.geminicraft.betterclaims.command.ClaimCommand;
 import org.geminicraft.betterclaims.command.ClaimToolCommand;
-import org.geminicraft.betterclaims.listeners.TestInteractEvents;
 import org.geminicraft.betterclaims.listeners.blocks.*;
 import org.geminicraft.betterclaims.listeners.player.PlayerEmptyBucketListener;
 import org.geminicraft.betterclaims.listeners.player.PlayerInteractListener;
@@ -34,28 +33,24 @@ public class MainPlugin extends SimplePlugin implements Listener {
             e.printStackTrace();
         }
 
-//        registerEvents(new TestInteractEvents(this, gson));
         registerEvents(new BlockPlaceListener());
         registerEvents(new BlockBreakListener());
         registerEvents(new BlockFormListener());
         registerEvents(new BlockFluidListener());
         registerEvents(new StructureGrowListener());
 
-//        registerEvents(new PlayerInteractListener());
-//        registerEvents(new PlayerSheerEntityListener());
-//        registerEvents(new PlayerEmptyBucketListener());
+        registerEvents(new PlayerInteractListener(gson));
+        registerEvents(new PlayerSheerEntityListener());
+        registerEvents(new PlayerEmptyBucketListener());
 
         registerCommand(new ClaimCommand(gson));
-        registerCommand(new ClaimToolCommand());
+        registerCommand(new ClaimToolCommand(gson));
     }
 
     private void getClaimFromJson(Gson gson) throws FileNotFoundException {
         File file = new File(this.getDataFolder().getAbsolutePath() + "/claims.json");
         FileReader reader = new FileReader(file);
         JsonArray jsonArray = gson.fromJson(reader, JsonArray.class);
-
-
-        jsonArray.forEach(System.out::println);
 
         jsonArray.forEach((arrayItem) -> {
 

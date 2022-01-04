@@ -78,6 +78,12 @@ public class ClaimBoundBox {
                 z <= minZ && z >= maxZ;
     }
 
+    public boolean intersects(Claim claim, ClaimBoundBox otherClaim) {
+        return this.minX <= otherClaim.maxX && this.maxX >= otherClaim.minX
+                && this.minY <= otherClaim.maxY && this.maxY >= otherClaim.minY
+                && this.minZ <= otherClaim.maxZ && this.maxZ >= otherClaim.minZ;
+    }
+
     public boolean overlaps(Claim claim) {
         return !(this.getMinX() > maxX || this.getMinY() > maxY || this.getMinZ() > maxZ ||
                 minZ > this.getMaxX() || minY > this.getMaxY() || minZ > this.getMaxZ());
